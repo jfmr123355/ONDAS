@@ -70,13 +70,46 @@ def calcular_onda(opcion, valor1, valor2=None):
 st.title("Simulador de Onda")
 
 opcion = st.radio(
-    "Selecciona una opción:",
+    "Selecciona la opción que quieres calcular:",
     [1, 2, 3, 4],
-    format_func=lambda x: {1: "Frecuencia", 2: "Longitud de onda", 3: "Velocidad", 4: "Periodo"}[x]
+    format_func=lambda x: {
+        1: "Calcular Frecuencia",
+        2: "Calcular Longitud de Onda",
+        3: "Calcular Velocidad",
+        4: "Calcular Periodo"
+    }[x]
 )
 
-valor1 = st.number_input("Valor 1", format="%.2f")
-valor2 = st.number_input("Valor 2 (opcional)", format="%.2f", value=None)
+if opcion == 1:
+    st.write("Para calcular la frecuencia, debes ingresar:")
+    st.write("- Velocidad de la onda (m/s)")
+    st.write("- Longitud de onda (m)")
+    valor1 = st.number_input("Velocidad de la onda (m/s)", format="%.2f")
+    valor2 = st.number_input("Longitud de onda (m)", format="%.2f")
+
+elif opcion == 2:
+    st.write("Para calcular la longitud de onda, debes ingresar:")
+    st.write("- Velocidad de la onda (m/s)")
+    st.write("- Frecuencia (Hz)")
+    valor1 = st.number_input("Velocidad de la onda (m/s)", format="%.2f")
+    valor2 = st.number_input("Frecuencia (Hz)", format="%.2f")
+
+elif opcion == 3:
+    st.write("Para calcular la velocidad de la onda, debes ingresar:")
+    st.write("- Frecuencia (Hz)")
+    st.write("- Longitud de onda (m)")
+    valor1 = st.number_input("Frecuencia (Hz)", format="%.2f")
+    valor2 = st.number_input("Longitud de onda (m)", format="%.2f")
+
+elif opcion == 4:
+    st.write("Para calcular el periodo, debes ingresar:")
+    st.write("- Longitud de onda (m)")
+    st.write("- Velocidad de la onda (m/s)")
+    valor1 = st.number_input("Longitud de onda (m)", format="%.2f")
+    valor2 = st.number_input("Velocidad de la onda (m/s)", format="%.2f")
 
 if st.button("Calcular"):
-    calcular_onda(opcion, valor1, valor2)
+    if valor1 and valor2 is not None:
+        calcular_onda(opcion, valor1, valor2)
+    else:
+        st.write("Por favor, ingresa todos los valores necesarios.")
